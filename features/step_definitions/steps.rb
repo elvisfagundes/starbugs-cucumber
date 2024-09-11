@@ -1,14 +1,13 @@
 Quando('acesso a página principal da Starbugs') do
-    visit 'https://starbugs.vercel.app/'
+    @home.open
 end
   
-Então('eu devo ver uma lista de cafés disponíveis') do
-    products = all('.coffee-item')
-    expect(products.size).to be > 0
+Então('eu devo ver uma lista de cafés disponíveis') do 
+    expect(@home.coffee_list.size).to be > 0
 end
 
 Dado('que estou na página inicial da Starbugs') do
-    visit 'https://starbugs.vercel.app/'
+    @home.open
 end
 
 Dado('que desejo comprar o seguinte produto:') do |table|
@@ -16,27 +15,17 @@ Dado('que desejo comprar o seguinte produto:') do |table|
   end
 
 Quando('inicio a compra desse item') do
-    product = find('.coffee-item', text: @product[:name])
-    product.find('.buy-coffee').click
+    @home.buy(@product)
 end
 
 Então('devo ver a página de Checkout com os detalhes do produto') do
-    product = find('.item-details h1')
-    expect(product.text).to eql @product[:name]
-
-    sub_total = find('.subtotal .sub-price')
-    expect(sub_total.text).to eql @product[:price]
-
-    delivery = find('.delivery .delivery-price')
-    expect(delivery.text).to eql @product[:delivery]
+    @checkout.assert_product_details(@product)
 end
 
 Então('o valor total da compra deve ser de {string}') do |total_price|
-    total = find('.total .total-price')
-    expect(total.text).to eql total_price
+    @checkout.assert_total_price(total_price)
 end
 
 Então('devo ver um popup informando que o produto está indisponível') do
-    popup = find('.swal2-popup .swal2-html-container')
-    expect(popup.text).to eql 'Produto indisponível'
+    @popup.have_text('Produto indisponível')
 end
