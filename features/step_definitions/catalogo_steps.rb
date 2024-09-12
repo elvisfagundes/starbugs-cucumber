@@ -15,7 +15,7 @@ Dado('que desejo comprar o seguinte produto:') do |table|
   end
 
 Quando('inicio a compra desse item') do
-    @home.buy(@product)
+    @home.buy(@product[:name])
 end
 
 Então('devo ver a página de Checkout com os detalhes do produto') do

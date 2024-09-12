@@ -22,4 +22,19 @@ class CheckoutPage
         total = find('.total .total-price')
         expect(total.text).to eql total_price
     end
+
+    def find_cep(cep)
+        find('input[name=cep]').set(cep)
+        click_on 'Buscar CEP'
+    end
+
+    def fill_address(address)
+        find('input[name=number]').set(address[:Numero])
+        find('input[name=complement]').set(address[:Complemento])
+    end
+
+    def metodo_pagemento(text)
+        //
+    end
+    
 end
