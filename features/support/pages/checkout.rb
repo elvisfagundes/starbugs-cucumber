@@ -47,7 +47,7 @@ class CheckoutPage
     end
 
     def notice(text)
-        notice_msg = find(.notice).text
+        notice_msg = find('.notice').text
         expect(notice_msg).to eql text
     end
 end
