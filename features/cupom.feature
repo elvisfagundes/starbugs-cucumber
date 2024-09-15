@@ -7,35 +7,27 @@ Funcionalidade: Uso de Cupons no Checkout
     Para que eu possa obter reduções no preço de produtos específicos ou na minha compra total, 
     aumentando a satisfação com a minha experiência de compra.
 
-    Cenario: Aplicar Desconto de 20%
+    Contexto:
+        Dado que iniciei a compra de um item:
+            | name     | Café com Leite |
+            | price    | R$ 19,99       |
+            | delivery | R$ 10,00       |
+            | total    | R$ 29,99       |
 
-        Dado que estou na página de Checkout
-            E o item que está no meu carrinho é o Café com Leite no valor de R$ 19,99
-            E que a taxa de entrega é de R$ 10,00
-            E o valor total é de R$ 29,99
-            E tenho um cupom com 20% de desconto
-        Quando aplico esse cupom de desconto
-        Então o desconto de 20% deve ser aplicado apenas no valor do Café com Leite
-            E o valor final da compra deve ser atualizado para R$ 25,99
+    Cenario: Aplicar Desconto de 20%
+        
+        Quando aplico esse cupom de desconto: "MEUCAFE"
+        Então o valor final da compra deve ser atualizado para "R$ 25,99"
+    
 
     Cenario: Cupom Expirado
 
-        Dado que estou na página de Checkout
-            E o item que está no meu carrinho é o Café com Leite no valor de R$ 19,99
-            E que a taxa de entrega é de R$ 10,00
-            E o valor total é de R$ 29,99
-            E tenho um cupom de desconto expirado
-        Quando aplico esse cupom de desconto
-        Então uma mensagem de "Cupom Expirado" deve ser exibida
-            E o valor total não deve ser alterado
+        Quando aplico esse cupom de desconto: "PROMO20"
+        Então o valor final da compra não deve sofrer alterações
+            E uma mensagem de "Cupom Expirado!" deve ser exibida
 
     Cenario: Cupom Inválido
 
-        Dado que estou na página de Checkout
-            E o item que está no meu carrinho é o Café com Leite no valor de R$ 19,99
-            E que a taxa de entrega é de R$ 10,00
-            E o valor total é de R$ 29,99
-            E tenho um cupom de desconto inválido
-        Quando aplico esse cupom de desconto
-        Então uma mensagem de "Cupom Inválido" deve ser exibida
-            E o valor total não deve ser alterado
+        Quando aplico esse cupom de desconto: "PROMO100"
+        Então o valor final da compra não deve sofrer alterações
+            E uma mensagem de "Cupom Inválido!" deve ser exibida
