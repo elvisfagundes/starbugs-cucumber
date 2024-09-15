@@ -41,4 +41,13 @@ class CheckoutPage
         click_on 'Confirmar pedido'
     end
 
+    def apply_coupon(coupon_code)
+        find('input[placeholder="Código do cupom"]').set(coupon_code)
+        click_on 'Aplicar'
+    end
+
+    def notice(text)
+        notice_msg = find(.notice).text
+        expect(notice_msg).to eql text
+    end
 end
